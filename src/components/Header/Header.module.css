@@ -1,0 +1,13 @@
+.header {
+    /*background: url("header.jpg") no-repeat;*/
+    background: #333;
+    width: 1200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.bg {
+    height: 200px;
+    width: 1200px;
+    margin: 0 auto;
+}
