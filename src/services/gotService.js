@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default class GotService {
 	constructor() {
 		this._apiBase = 'https://www.anapioficeandfire.com/api'
@@ -14,20 +12,61 @@ export default class GotService {
 		return await res.json()
 	}
 
-	getAllCharacters() {
-		return this.getResource(`/characters?page=1&pageSize=10`)
+	async getAllCharacters() {
+		const res = await this.getResource(`/characters?page=1&pageSize=10`)
+		return res.map(this._transformCharacter)
 	}
 
-	getCharacter(id) {
-		return this.getResource(`/characters/${id}`)
+	async getCharacter(id) {
+		const character = await this.getResource(`/characters/${id}/`)
+		return this._transformCharacter(character)
 	}
 
-	getAllHouses() {
-		return this.getResource(`/houses`)
+	async getAllHouses() {
+		const res = await this.getResource(`/houses`)
+		return res.map(this._transformHouse)
 	}
 
-	getAllBooks() {
-		return this.getResource(`/books`)
+	async getAllBooks() {
+		const res = await this.getResource(`/books`)
+		return res.map(this._transformBook)
+	}
+
+	async getBook(id) {
+		const book = await this.getResource(`/books/${id}/`)
+		return this._transformBook(book)
+	}
+
+	_transformCharacter(char) {
+		return {
+					name: char.name,
+					gender: char.gender,
+					born: char.born,
+					died: char.died,
+					culture: char.culture
+		}
+	}
+
+	_transformHouse(house) {
+		return {
+			name: house.name,
+			region: house.region,
+			words: house.words,
+			titles: house.titles,
+			overlord: house.overlord
+		}
+	}
+
+	_transformBook(book) {
+		return {
+			name: book.name,
+			authors: book.authors,
+			numberOfPages: book.numberOfPages,
+			publisher: book.publisher,
+			country: book.country,
+			mediaType: book.mediaType,
+			released: book.released
+		}
 	}
 
 }

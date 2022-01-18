@@ -1,0 +1,11 @@
+.random-block {
+    width: 500px;
+    background: white;
+    color: black;
+}
+
+.btn {
+    position: absolute;
+    /*padding-bottom: 20px;*/
+}
+
