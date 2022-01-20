@@ -62,9 +62,10 @@
                 background: #1c4595;
             }
 .loadingio-spinner-spinner-g4f20ww8pi5 {
+    margin: 0 auto;
     width: 200px;
     height: 200px;
-    display: inline-block;
+    display: block;
     overflow: hidden;
     /*background: #f1f2f3;*/
 }
