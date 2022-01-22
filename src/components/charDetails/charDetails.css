@@ -1,0 +1,20 @@
+.char-details {
+    width: 400px;
+    margin-left: 50px;
+    background: white;
+    color: black;
+    height: min-content;
+}
+
+.char-details h4 {
+    text-align: center;
+}
+
+.select-error {
+    margin-left: 50px;
+    background: white;
+    color: black;
+    height: min-content;
+    padding: 5px;
+    border-radius: 5px;
+}

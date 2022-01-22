@@ -13,18 +13,23 @@ export default class GotService {
 	}
 
 	async getAllCharacters() {
-		const res = await this.getResource(`/characters?page=1&pageSize=10`)
+		const res = await this.getResource(`/characters?page=2&pageSize=10`)
 		return res.map(this._transformCharacter)
 	}
 
 	async getCharacter(id) {
 		const character = await this.getResource(`/characters/${id}/`)
-		return this._transformCharacter(character)
+		return this._transformCharacter(character, id)
 	}
 
 	async getAllHouses() {
 		const res = await this.getResource(`/houses`)
 		return res.map(this._transformHouse)
+	}
+
+	async getAllHouse(id) {
+		const house = await this.getResource(`/houses/${id}`)
+		return this._transformHouse(house, id)
 	}
 
 	async getAllBooks() {
@@ -34,11 +39,13 @@ export default class GotService {
 
 	async getBook(id) {
 		const book = await this.getResource(`/books/${id}/`)
-		return this._transformBook(book)
+		return this._transformBook(book, id)
 	}
 
-	_transformCharacter(char) {
+	_transformCharacter(char, id) {
 		return {
+					id: id,
+					url: char.url,
 					name: char.name,
 					gender: char.gender,
 					born: char.born,
@@ -47,8 +54,9 @@ export default class GotService {
 		}
 	}
 
-	_transformHouse(house) {
+	_transformHouse(house, id) {
 		return {
+			id: id,
 			name: house.name,
 			region: house.region,
 			words: house.words,
@@ -57,8 +65,9 @@ export default class GotService {
 		}
 	}
 
-	_transformBook(book) {
+	_transformBook(book, id) {
 		return {
+			id: id,
 			name: book.name,
 			authors: book.authors,
 			numberOfPages: book.numberOfPages,

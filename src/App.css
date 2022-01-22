@@ -21,5 +21,9 @@
 }
 
 .btn-toggle-random {
-  margin-bottom: 5px;
+  margin: 5px;
+}
+
+.char-info {
+  display: flex;
 }
