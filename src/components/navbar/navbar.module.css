@@ -8,5 +8,10 @@
 .nav li {
     margin-right: 30px;
     margin-top: 15px;
+    cursor: pointer;
+}
 
+.nav li a {
+    text-decoration: none;
+    color: white;
 }

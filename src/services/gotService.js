@@ -12,69 +12,85 @@ export default class GotService {
 		return await res.json()
 	}
 
-	async getAllCharacters() {
+	getAllCharacters = async () => {
 		const res = await this.getResource(`/characters?page=2&pageSize=10`)
 		return res.map(this._transformCharacter)
 	}
 
-	async getCharacter(id) {
+	getCharacter = async (id) => {
 		const character = await this.getResource(`/characters/${id}/`)
-		return this._transformCharacter(character, id)
+		return this._transformCharacter(character)
 	}
 
-	async getAllHouses() {
+	getAllHouses = async () => {
 		const res = await this.getResource(`/houses`)
 		return res.map(this._transformHouse)
 	}
 
-	async getAllHouse(id) {
+	getHouse = async (id) => {
 		const house = await this.getResource(`/houses/${id}`)
-		return this._transformHouse(house, id)
+		return this._transformHouse(house)
 	}
 
-	async getAllBooks() {
+	getAllBooks = async () => {
 		const res = await this.getResource(`/books`)
 		return res.map(this._transformBook)
 	}
 
-	async getBook(id) {
+	getBook = async (id) => {
 		const book = await this.getResource(`/books/${id}/`)
-		return this._transformBook(book, id)
+		return this._transformBook(book)
 	}
 
-	_transformCharacter(char, id) {
-		return {
-					id: id,
-					url: char.url,
-					name: char.name,
-					gender: char.gender,
-					born: char.born,
-					died: char.died,
-					culture: char.culture
+	isSet(data) {
+		if (data) {
+			return data
+		} else {
+			return "-no data-"
 		}
 	}
 
-	_transformHouse(house, id) {
+	_extractId = (item) => {
+		const idRegExp = /\d*$/
+		return item.url.match(idRegExp)
+	}
+
+	_transformCharacter = (char) => {
 		return {
-			id: id,
-			name: house.name,
-			region: house.region,
-			words: house.words,
-			titles: house.titles,
-			overlord: house.overlord
+			id: this._extractId(char),
+			url: char.url,
+			name: this.isSet(char.name),
+			gender: this.isSet(char.gender),
+			born: this.isSet(char.born),
+			died: this.isSet(char.died),
+			culture: this.isSet(char.culture)
+
 		}
 	}
 
-	_transformBook(book, id) {
+	_transformHouse = (house) => {
 		return {
-			id: id,
-			name: book.name,
-			authors: book.authors,
-			numberOfPages: book.numberOfPages,
-			publisher: book.publisher,
-			country: book.country,
-			mediaType: book.mediaType,
-			released: book.released
+			id: this._extractId(house),
+			// url: house.url,
+			name: this.isSet(house.name),
+			region: this.isSet(house.region),
+			words: this.isSet(house.words),
+			titles: this.isSet(house.titles),
+			overlord: this.isSet(house.overlord)
+		}
+	}
+
+	_transformBook = (book) => {
+		return {
+			id: this._extractId(book),
+			// url: book.url,
+			name: this.isSet(book.name),
+			authors: this.isSet(book.authors),
+			numberOfPages: this.isSet(book.numberOfPages),
+			publisher: this.isSet(book.publisher),
+			country: this.isSet(book.country),
+			mediaType: this.isSet(book.mediaType),
+			released: this.isSet(book.released)
 		}
 	}
 
