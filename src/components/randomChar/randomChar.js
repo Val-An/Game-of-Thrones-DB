@@ -3,19 +3,29 @@ import './randomChar.css'
 import gotService from '../../services/gotService'
 import Spinner from '../spinner/spinner'
 import ErrorMesage from "../errorMesage/errorMesage";
+import PropTypes from 'prop-types';
 
 export default class RandomChar extends Component {
 
 	gotService = new gotService()
+
 	state = {
 		char: {},
 		loading: true,
 		error: false
 	}
 
+	static defoultProps = {
+		interval: 15000
+	}
+
+	static propTypes = {
+		interval: PropTypes.number
+	}
+
 	componentDidMount() {
 		this.updateChar()
-		this.timerRand = setInterval(this.updateChar, 3000)
+		this.timerRand = setInterval(this.updateChar, 15000)
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
@@ -45,6 +55,7 @@ export default class RandomChar extends Component {
 				.then(this.onCharLoaded)
 				.catch(this.onError)
 	}
+
 
 
 	render() {
@@ -87,3 +98,4 @@ export default class RandomChar extends Component {
 	}
 
 }
+
